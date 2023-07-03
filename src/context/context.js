@@ -1,10 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const cartContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+
+  
 
   const addToCart = (item) => {
     const alreadyExist = cart.find((i) => i.id === item.id);
@@ -19,7 +21,6 @@ const ContextProvider = ({ children }) => {
     } else {
       setCart([...cart, { ...item, quantity: 1 }]);
     }
-    console.log(cart);
   };
 
   const removeFromCart = (item) => {
@@ -33,7 +34,7 @@ const ContextProvider = ({ children }) => {
 
   const totalPrice = () => {
     let total = 0;
-    cart.map((i) => (total = total + i.price * i.quantity));
+    cart.forEach((i) => (total = total + i.price * i.quantity));
 
     return total;
   };
@@ -55,9 +56,7 @@ const ContextProvider = ({ children }) => {
     const updatedCart = cart.filter((i) => i.id !== item.id);
     setCart(updatedCart);
 
-    setWishlist([...wishlist, item])
-    console.log("wishlist");
-    console.log(wishlist);
+    setWishlist([...wishlist, item]);
   };
 
   return (
@@ -68,7 +67,9 @@ const ContextProvider = ({ children }) => {
         removeFromCart,
         clearCart,
         totalPrice,
-        decreaseQuantity, addToWishlist, wishlist
+        decreaseQuantity,
+        addToWishlist,
+        wishlist
       }}
     >
       {children}

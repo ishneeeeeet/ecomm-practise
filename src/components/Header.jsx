@@ -14,7 +14,7 @@ const menuItems = [
   },
   {
     name: 'Wishlist',
-    href: '#',
+    href: '/wishlist',
   },
 ]
 

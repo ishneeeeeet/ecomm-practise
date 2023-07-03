@@ -1,15 +1,11 @@
-import React, { useContext } from 'react'
-import { cartContext } from '../context/context'
+import React, { useContext } from "react";
+import { cartContext } from "../context/context";
 
 const Wishlist = () => {
+  const { wishlist } = useContext(cartContext);
+  return <div>
+    {console.log(wishlist)}
+  </div>;
+};
 
-    const {wishList} = useContext(cartContext)
-  return (
-    <div>
-
-       { wishList.map((i) => i.title)}
-    </div>
-  )
-}
-
-export default Wishlist
+export default Wishlist;
