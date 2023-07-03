@@ -13,7 +13,7 @@ const menuItems = [
     href: '#',
   },
   {
-    name: 'Contact',
+    name: 'Wishlist',
     href: '#',
   },
 ]
