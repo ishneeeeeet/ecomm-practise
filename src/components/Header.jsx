@@ -1,29 +1,31 @@
-
-import React from 'react'
-import { Menu, X } from 'lucide-react'
-import {Link} from "react-router-dom"
+import React, { useContext } from "react";
+import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { cartContext } from "../context/context";
 
 const menuItems = [
   {
-    name: 'Home',
-    href: '#',
+    name: "Home",
+    href: "/",
   },
   {
-    name: 'About',
-    href: '#',
+    name: "About",
+    href: "#",
   },
   {
-    name: 'Wishlist',
-    href: '/wishlist',
+    name: "Wishlist",
+    href: "/wishlist",
   },
-]
+];
 
- function Header() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+function Header() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const { cart } = useContext(cartContext);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <div className="relative w-full bg-white">
@@ -61,12 +63,12 @@ const menuItems = [
         </div>
         <div className="hidden lg:block">
           <Link to="/cart">
-          <button
-            type="button"
-            className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Cart
-          </button>
+            <button
+              type="button"
+              className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            >
+              Cart ({cart.length})
+            </button>
           </Link>
         </div>
         <div className="lg:hidden">
@@ -124,7 +126,7 @@ const menuItems = [
                   type="button"
                   className="mt-4 w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
-                  Cart
+                  Cart ({cart.length})
                 </button>
               </div>
             </div>
@@ -132,7 +134,7 @@ const menuItems = [
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
