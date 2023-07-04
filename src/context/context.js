@@ -6,8 +6,6 @@ const ContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  
-
   const addToCart = (item) => {
     const alreadyExist = cart.find((i) => i.id === item.id);
     if (alreadyExist) {
@@ -69,7 +67,7 @@ const ContextProvider = ({ children }) => {
         totalPrice,
         decreaseQuantity,
         addToWishlist,
-        wishlist
+        wishlist,
       }}
     >
       {children}
