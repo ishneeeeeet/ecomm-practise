@@ -3,8 +3,22 @@ import React, { createContext, useEffect, useState } from "react";
 const cartContext = createContext();
 
 const ContextProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const storedCart = localStorage.getItem("cart");
+  const initialCart = storedCart ? JSON.parse(storedCart) : [];
+
+  const storedWishlist = localStorage.getItem("wishlist");
+  const initialWishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+
+  const [cart, setCart] = useState(initialCart);
+  const [wishlist, setWishlist] = useState(initialWishlist);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   const addToCart = (item) => {
     const alreadyExist = cart.find((i) => i.id === item.id);
