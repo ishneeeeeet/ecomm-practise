@@ -9,12 +9,20 @@ const Home = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All"); // Track the selected category
   const [sortBy, setSortBy] = useState(""); // Track the selected sort option
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      setProducts(response.data);
-      console.log(response.data);
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products");
+       
+        setProducts(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        setError("Failed to fetch data from the API.");
+        setIsLoading(false);
+      }
     };
     fetchDetails();
   }, []);
@@ -43,6 +51,14 @@ const Home = () => {
 
   // Get unique categories from the products
   const categories = [...new Set(products.map((product) => product.category))];
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <>
@@ -83,7 +99,7 @@ const Home = () => {
         </label>
         <label>
           <input
-            type="radio"
+           type="radio"
             name="sort"
             checked={sortBy === "highToLow"}
             onChange={() => setSortBy("highToLow")}
