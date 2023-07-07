@@ -1,14 +1,14 @@
-import React from 'react'
-import { Star, ChevronDown } from 'lucide-react'
+import React from "react";
 
-const ProductDetails = ({product}) => {
-
-  console.log(product);
+const ProductDetails = ({ product }) => {
   return (
-    <section className="overflow-hidden">
-      hii
-    </section>
-  )
-}
+    <div>
+      <h1>{product.title}</h1>
+      <img src={product.image} alt="Laptop" />
+      <p>Price: {product.price}</p>
+      {/* Add more details about the product */}
+    </div>
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;

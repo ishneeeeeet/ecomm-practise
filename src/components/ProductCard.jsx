@@ -1,15 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { cartContext } from "../context/context";
 import { Link } from "react-router-dom";
+import ProductDetails from "./ProductDetails";
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useContext(cartContext);
-  
-  // Function to handle adding the product to the cart
+  const [showDetails, setShowDetails] = useState(false);
+
   const handleAddToCart = () => {
     addToCart(product);
   };
-  
+
+  const handleViewDetails = () => {
+    setShowDetails(true);
+  };
+
   return (
     <div key={product.id} className="rounded-md border">
       <Link to="/">
@@ -21,7 +26,10 @@ const ProductCard = ({ product }) => {
       </Link>
       <div className="p-4">
         <Link>
-          <h1 className="inline-flex items-center text-lg font-semibold">
+          <h1
+            className="inline-flex items-center text-lg font-semibold"
+            onClick={handleViewDetails}
+          >
             {product.title}
           </h1>
         </Link>
@@ -38,14 +46,16 @@ const ProductCard = ({ product }) => {
         >
           Add to Cart
         </button>
-        <Link to={`/products/${product.id}`}>
-          <button
-            type="button"
-            className="mt-4 w-full rounded-sm bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
-          >
-            View Details
-          </button>
-        </Link>
+
+        <button
+          onClick={handleViewDetails}
+          type="button"
+          className="mt-4 w-full rounded-sm bg-blue-500 px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+        >
+          View Details
+        </button>
+
+        {showDetails && <ProductDetails product={product} />}
       </div>
     </div>
   );
